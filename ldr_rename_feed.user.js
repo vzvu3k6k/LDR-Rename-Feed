@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        LDR Rename Feed
 // @description :rename
+// @version     1.2
 // @namespace   http://www.vzvu3k6k.tk/
-// @version     1.1
 // @homepage    https://github.com/vzvu3k6k/LDR-Rename-Feed
 // @match       http://reader.livedoor.com/reader/*
 // @license     public domain
