@@ -21,11 +21,9 @@ var main = function(){
         for(var i = 0, l = list.length; i < l; i++){
             var newName = localStorage.getItem("rename_" + list[i].subscribe_id);
             if(newName !== null){
-                list[i].original_title = list[i].title;
-                list[i].title = newName;
+                renameFeed(list[i], newName);
             }
         }
-        /* 左のフィードのリストを更新 */
         subs.update();
     });
 
@@ -33,28 +31,29 @@ var main = function(){
        :rename<Enter>で起動 */
     register_command("rename", function(){
         var activeFeed = get_active_feed();
-        var newName = window.prompt("新しい名前を入力", activeFeed.title);
+        var newName = window.prompt("新しい名前を入力", activeFeed().channel.title);
         console.log(newName);
         if(newName === null) return;
         if(newName !== ""){
             localStorage.setItem("rename_" + activeFeed.subscribe_id, newName);
+            renameFeed(activeFeed, newName);
         }else{
             localStorage.removeItem("rename_" + activeFeed.subscribe_id);
-
-            /* タイトルを戻す */
-            var list = subs.model.list;
-            for(var i = 0, l = list.length; i < l; i++){
-                if(list[i].subscribe_id == activeFeed.subscribe_id){
-                    list[i].title = list[i].original_title;
-                    delete list[i].original_title;
-                    break;
-                }
-            }
+            resetFeedName(subs.model.id2subs[activeFeed.id]);
         }
+
         subs.update();
     });
 
     var toJSON = JSON.stringify || uneval;
+    var renameFeed = function(feed, newName){
+        if(feed.original_title === undefined) feed.original_title = feed.title;
+        feed.title = newName;
+    };
+    var resetFeedName = function(feed){
+        feed.title = feed.original_title;
+        delete feed.original_title;
+    };
 };
 
 location.href = "javascript:(" + main + ")()";
