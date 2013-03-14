@@ -5,6 +5,7 @@
 // @version     1.1
 // @homepage    https://github.com/vzvu3k6k/LDR-Rename-Feed
 // @match       http://reader.livedoor.com/reader/*
+// @license     public domain
 // ==/UserScript==
 
 // メモ
