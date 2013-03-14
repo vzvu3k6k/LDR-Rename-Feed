@@ -31,8 +31,8 @@ var main = function(){
        :rename<Enter>で起動 */
     register_command("rename", function(){
         var activeFeed = get_active_feed();
-        var newName = window.prompt("新しい名前を入力", activeFeed().channel.title);
-        console.log(newName);
+        var newName = window.prompt("新しい名前を入力", activeFeed.channel.title);
+
         if(newName === null) return;
         if(newName !== ""){
             localStorage.setItem("rename_" + activeFeed.subscribe_id, newName);
